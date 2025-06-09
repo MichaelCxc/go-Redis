@@ -1,0 +1,6 @@
+[INFO][server.go:38] 2025/06/08 20:27:57 Start listen
+[INFO][server.go:63] 2025/06/08 20:34:57 Accepted link
+[INFO][server.go:48] 2025/06/08 20:36:35 Shutting down
+[INFO][echo.go:66] 2025/06/08 20:36:35 Handler shutting down
+[INFO][echo.go:50] 2025/06/08 20:36:35 Connection closed by client
+[INFO][echo.go:66] 2025/06/08 20:36:35 Handler shutting down
