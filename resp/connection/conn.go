@@ -14,17 +14,23 @@ type Connection struct {
 	selectedDB   int
 }
 
-func (c *Connection) RemoveteAddr() net.Addr {
+func (c *Connection) RemoteAddr() net.Addr {
 	return c.conn.RemoteAddr()
 }
 
-func (c Connection) Close() error {
+func NewConn(conn net.Conn) *Connection {
+	return &Connection{
+		conn: conn,
+	}
+}
+
+func (c *Connection) Close() error {
 	c.waitingReply.WaitWithTimeout(10 * time.Second)
 	_ = c.conn.Close()
 	return nil
 }
 
-func (c Connection) Write(bytes []byte) error {
+func (c *Connection) Write(bytes []byte) error {
 	if len(bytes) == 0 {
 		return nil
 	}
@@ -38,10 +44,10 @@ func (c Connection) Write(bytes []byte) error {
 	return err
 }
 
-func (c Connection) GetDBIndex() int {
+func (c *Connection) GetDBIndex() int {
 	return c.selectedDB
 }
 
-func (c Connection) SelectDB(dbNum int) {
+func (c *Connection) SelectDB(dbNum int) {
 	c.selectedDB = dbNum
 }
