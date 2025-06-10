@@ -47,7 +47,7 @@ func parse0(reader io.Reader, ch chan<- *Payload) {
 	var state readState
 	var err error
 	var msg []byte
-	for true {
+	for {
 		var ioErr bool
 		msg, ioErr, err = readLine(bufReader, &readState{})
 		if err != nil {
