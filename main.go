@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"go-Redis/config"
 	"go-Redis/lib/logger"
+	"go-Redis/resp/handler"
 	"go-Redis/tcp"
 	"os"
 )
@@ -40,7 +41,7 @@ func main() {
 				config.Properties.Bind,
 				config.Properties.Port),
 		},
-		tcp.MakeHandler())
+		handler.MakeHandler())
 	if err != nil {
 		logger.Error(err)
 	}
