@@ -1,0 +1,7 @@
+[INFO][server.go:38] 2025/06/10 22:52:27 Start listen
+[INFO][server.go:63] 2025/06/10 22:52:46 Accepted link
+[INFO][handler.go:76] 2025/06/10 22:55:57 Require multi bulk reply
+[INFO][handler.go:76] 2025/06/10 22:56:07 Require multi bulk reply
+[INFO][handler.go:57] 2025/06/10 22:56:23 Connection closed: 127.0.0.1:10166
+[INFO][server.go:48] 2025/06/10 22:56:27 Shutting down
+[INFO][handler.go:92] 2025/06/10 22:56:27 Handler shutting down.
