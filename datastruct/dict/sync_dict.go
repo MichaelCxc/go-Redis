@@ -62,26 +62,49 @@ func (dict *SyncDict) Remove(key string) (result int) {
 }
 
 func (dict *SyncDict) ForEach(consumer Consumer) {
-	//TODO implement me
-	panic("implement me")
+	dict.m.Range(func(key, value interface{}) bool {
+		consumer(key.(string), value)
+		return true
+	})
 }
 
 func (dict *SyncDict) Keys() []string {
-	//TODO implement me
-	panic("implement me")
+	result := make([]string, dict.Len())
+	i := 0
+	dict.m.Range(func(key, value interface{}) bool {
+		result[i] = key.(string)
+		i++
+		return true
+	})
+	return result
 }
 
 func (dict *SyncDict) RandomKeys(limit int) []string {
-	//TODO implement me
-	panic("implement me")
+	result := make([]string, dict.Len())
+	for i := 0; i < limit; i++ {
+		dict.m.Range(func(key, value interface{}) bool {
+			result[i] = key.(string)
+			return false
+		})
+	}
+	return result
 }
 
 func (dict *SyncDict) RandomDistinctKeys(limit int) []string {
-	//TODO implement me
-	panic("implement me")
+	result := make([]string, dict.Len())
+	i := 0
+	dict.m.Range(func(key, value interface{}) bool {
+		result[i] = key.(string)
+		i++
+		if i == limit {
+			return false
+		}
+		return true
+	})
+	return result
 }
 
 func (dict *SyncDict) clear() {
-	//TODO implement me
-	panic("implement me")
+	//let system do garbage collection
+	*dict = *MakeSyncDict()
 }
