@@ -53,6 +53,8 @@ func validateArity(arity int, cmdArgs [][]byte) bool {
 	return argNum >= -arity
 }
 
+/* ---- data Access ----- */
+
 func (db *DB) GetEntity(key string) (*database.DataEntity, bool){
 	raw, ok := db.data.Get(key)
 	if !ok {
