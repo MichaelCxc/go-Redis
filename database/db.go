@@ -10,16 +10,14 @@ import (
 
 type DB struct {
 	index int
-	data dict.Dict
+	data  dict.Dict
 }
 
-type ExecFunc func(db *DB, args [][]byute) resp.Reply{
-
-}
+type ExecFunc func(db *DB, args [][]byte) resp.Reply
 
 type CmdLine = [][]byte
 
-func makeDB() *DB{
+func makeDB() *DB {
 	db := &DB{
 		data: dict.MakeSyncDict(),
 	}
@@ -34,7 +32,7 @@ func (db *DB) Exec(c resp.Connection, cmdLine CmdLine) resp.Reply {
 		return reply.MakeErrReply("Err unknown command " + cmdName)
 	}
 	// SET k
-	if !validateArity(cmd.arity, cmdLine){
+	if !validateArity(cmd.arity, cmdLine) {
 		return reply.MakeArgNumErrReply(cmdName)
 	}
 
@@ -44,7 +42,7 @@ func (db *DB) Exec(c resp.Connection, cmdLine CmdLine) resp.Reply {
 
 }
 
-//EXISTS k1, k2, k3, k4,...
+// EXISTS k1, k2, k3, k4,...
 func validateArity(arity int, cmdArgs [][]byte) bool {
 	argNum := len(cmdArgs)
 	if arity >= 0 {
@@ -55,34 +53,33 @@ func validateArity(arity int, cmdArgs [][]byte) bool {
 
 /* ---- data Access ----- */
 
-func (db *DB) GetEntity(key string) (*database.DataEntity, bool){
+func (db *DB) GetEntity(key string) (*database.DataEntity, bool) {
 	raw, ok := db.data.Get(key)
 	if !ok {
-		return nil,false
+		return nil, false
 	}
-	entity,_ := raw.(*database.DataEntity)
+	entity, _ := raw.(*database.DataEntity)
 	return entity, true
 }
 
-func (db *DB) PutEntity(key string, entity *database.DataEntity) int{
+func (db *DB) PutEntity(key string, entity *database.DataEntity) int {
 	return db.data.Put(key, entity)
 }
 
-func (db *DB) PutIfExists(key string, entity *database.DataEntity) int{
+func (db *DB) PutIfExists(key string, entity *database.DataEntity) int {
 	return db.data.PutIfExists(key, entity)
 }
 
-func (db *DB) PutIfAbsent(key string, entity *database.DataEntity) int{
+func (db *DB) PutIfAbsent(key string, entity *database.DataEntity) int {
 	return db.data.PutIfAbsent(key, entity)
 }
-
 
 func (db *DB) Remove(key string) {
 	db.data.Remove(key)
 }
 
 func (db *DB) Removes(keys ...string) (deleted int) {
-	deleted = 0;
+	deleted = 0
 	for _, key := range keys {
 		_, exists := db.data.Get(key)
 		if exists {

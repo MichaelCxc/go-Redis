@@ -35,7 +35,7 @@ func (dict *SyncDict) Put(key string, val interface{}) (result int) {
 
 func (dict *SyncDict) PutIfAbsent(key string, val interface{}) (result int) {
 
-	_, existed := dict.m.Load(key, val)
+	_, existed := dict.m.Load(key)
 	if existed {
 		return 0
 	}
@@ -44,7 +44,7 @@ func (dict *SyncDict) PutIfAbsent(key string, val interface{}) (result int) {
 }
 
 func (dict *SyncDict) PutIfExists(key string, val interface{}) (result int) {
-	_, existed := dict.m.Load(key, val)
+	_, existed := dict.m.Load(key)
 	if existed {
 		dict.m.Store(key, val)
 		return 1
