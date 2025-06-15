@@ -26,8 +26,8 @@ func NewNodeMap(fn HashFunc) *NodeMap {
 	return m
 }
 
-func (n *NodeMap) IsEmpty() bool {
-	return len(n.nodeHashValue) == 0
+func (m *NodeMap) IsEmpty() bool {
+	return len(m.nodeHashValue) == 0
 }
 
 func (m *NodeMap) AddNode(keys ...string) {
@@ -40,4 +40,18 @@ func (m *NodeMap) AddNode(keys ...string) {
 		m.nodeHashMap[hash] = key
 	}
 	sort.Ints(m.nodeHashValue)
+}
+
+func (m *NodeMap) PickNode(keys string) string {
+	if m.IsEmpty() {
+		return ""
+	}
+	hash := int(m.hashFunc([]byte(keys)))
+	idx := sort.Search(len(m.nodeHashValue), func(i int) bool {
+		return m.nodeHashValue[i] >= hash
+	})
+	if idx == len(m.nodeHashValue) {
+		idx = 0
+	}
+	return m.nodeHashMap[m.nodeHashValue[idx]]
 }
