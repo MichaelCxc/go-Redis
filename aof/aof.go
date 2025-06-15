@@ -5,6 +5,7 @@ import (
 	"go-Redis/interface/database"
 	"go-Redis/lib/logger"
 	"go-Redis/lib/utils"
+	"go-Redis/resp/connection"
 	"go-Redis/resp/parser"
 	"go-Redis/resp/reply"
 	"io"
@@ -95,6 +96,7 @@ func (handler *AofHandler) LoadAof() {
 	}
 	defer file.Close()
 	ch := parser.ParseStream(file)
+	fakeConn := &connection.Connection{}
 	for p := range ch {
 		if p.Err != nil {
 			if p.Err == io.EOF {
@@ -111,6 +113,10 @@ func (handler *AofHandler) LoadAof() {
 		if !ok {
 			logger.Error("need multi bulk")
 			continue
+		}
+		rep := handler.database.Exec(fakeConn, r.Args)
+		if reply.IsErrorReply(rep) {
+			logger.Error(rep)
 		}
 	}
 }
