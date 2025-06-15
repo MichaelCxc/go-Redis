@@ -5,7 +5,9 @@ import (
 	"go-Redis/interface/database"
 	"go-Redis/lib/logger"
 	"go-Redis/lib/utils"
+	"go-Redis/resp/parser"
 	"go-Redis/resp/reply"
+	"io"
 	"os"
 	"strconv"
 )
@@ -35,6 +37,7 @@ func NewAofHandler(db database.Database) (*AofHandler, error) {
 	handler.database = db
 	//load aof
 	handler.LoadAof()
+	// no need to close due to open here is a life long process
 	aoFile, err := os.OpenFile(handler.aofFilename, os.O_APPEND|os.O_CREATE|os.O_RDWR, 0600)
 	if err != nil {
 		return nil, err
@@ -85,5 +88,29 @@ func (handler *AofHandler) handleAof() {
 
 // Load AOF
 func (handler *AofHandler) LoadAof() {
-
+	file, err := os.Open(handler.aofFilename)
+	if err != nil {
+		logger.Error(err)
+		return
+	}
+	defer file.Close()
+	ch := parser.ParseStream(file)
+	for p := range ch {
+		if p.Err != nil {
+			if p.Err == io.EOF {
+				break
+			}
+			logger.Error(p.Err)
+			continue
+		}
+		if p.Data == nil {
+			logger.Error("empty payload")
+			continue
+		}
+		r, ok := p.Data.(*reply.MultiBulkReply)
+		if !ok {
+			logger.Error("need multi bulk")
+			continue
+		}
+	}
 }
