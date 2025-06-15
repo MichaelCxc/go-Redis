@@ -1,0 +1,32 @@
+[INFO][server.go:38] 2025/06/15 12:14:55 Start listen
+[INFO][server.go:48] 2025/06/15 12:15:03 Shutting down
+[INFO][handler.go:92] 2025/06/15 12:15:03 Handler shutting down.
+[INFO][server.go:38] 2025/06/15 12:24:33 Start listen
+[INFO][server.go:63] 2025/06/15 12:24:43 Accepted link
+[INFO][server.go:48] 2025/06/15 12:26:53 Shutting down
+[INFO][handler.go:92] 2025/06/15 12:26:53 Handler shutting down.
+[INFO][handler.go:57] 2025/06/15 12:26:53 Connection closed: 127.0.0.1:2517
+[INFO][handler.go:92] 2025/06/15 12:26:53 Handler shutting down.
+[INFO][server.go:38] 2025/06/15 12:27:04 Start listen
+[INFO][server.go:63] 2025/06/15 12:27:13 Accepted link
+[INFO][server.go:48] 2025/06/15 12:27:59 Shutting down
+[INFO][handler.go:92] 2025/06/15 12:27:59 Handler shutting down.
+[INFO][handler.go:57] 2025/06/15 12:27:59 Connection closed: 127.0.0.1:2542
+[INFO][handler.go:92] 2025/06/15 12:27:59 Handler shutting down.
+[INFO][server.go:38] 2025/06/15 12:29:35 Start listen
+[INFO][server.go:63] 2025/06/15 12:29:49 Accepted link
+[INFO][server.go:48] 2025/06/15 12:31:58 Shutting down
+[INFO][handler.go:92] 2025/06/15 12:31:58 Handler shutting down.
+[INFO][handler.go:57] 2025/06/15 12:31:58 Connection closed: 127.0.0.1:2569
+[INFO][handler.go:92] 2025/06/15 12:31:58 Handler shutting down.
+[INFO][server.go:38] 2025/06/15 12:36:25 Start listen
+[INFO][server.go:63] 2025/06/15 12:36:29 Accepted link
+[INFO][handler.go:57] 2025/06/15 12:36:33 Connection closed: 127.0.0.1:2666
+[INFO][server.go:48] 2025/06/15 12:36:45 Shutting down
+[INFO][handler.go:92] 2025/06/15 12:36:45 Handler shutting down.
+[INFO][server.go:38] 2025/06/15 12:36:52 Start listen
+[INFO][server.go:63] 2025/06/15 12:37:01 Accepted link
+[INFO][server.go:48] 2025/06/15 12:37:14 Shutting down
+[INFO][handler.go:92] 2025/06/15 12:37:14 Handler shutting down.
+[INFO][handler.go:57] 2025/06/15 12:37:14 Connection closed: 127.0.0.1:2673
+[INFO][handler.go:92] 2025/06/15 12:37:14 Handler shutting down.
