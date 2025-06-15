@@ -30,3 +30,6 @@
 [INFO][handler.go:92] 2025/06/15 12:37:14 Handler shutting down.
 [INFO][handler.go:57] 2025/06/15 12:37:14 Connection closed: 127.0.0.1:2673
 [INFO][handler.go:92] 2025/06/15 12:37:14 Handler shutting down.
+[INFO][server.go:38] 2025/06/15 13:43:06 Start listen
+[INFO][server.go:48] 2025/06/15 13:43:07 Shutting down
+[INFO][handler.go:92] 2025/06/15 13:43:07 Handler shutting down.
