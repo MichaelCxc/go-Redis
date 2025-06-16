@@ -1,8 +1,18 @@
 package cluster
 
-import "go-Redis/interface/resp"
+import (
+	pool "github.com/jolestar/go-commons-pool/v2"
+	"go-Redis/interface/database"
+	"go-Redis/interface/resp"
+	"go-Redis/lib/consistenthash"
+)
 
 type ClusterDatabase struct {
+	self           string
+	nodes          []string
+	peerPicker     *consistenthash.NodeMap
+	peerconnection map[string]*pool.ObjectPool
+	db             database.Database
 }
 
 func MakeClusterDatabase() *ClusterDatabase {
