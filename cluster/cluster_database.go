@@ -14,7 +14,7 @@ type ClusterDatabase struct {
 	self           string
 	nodes          []string
 	peerPicker     *consistenthash.NodeMap
-	peerconnection map[string]*pool.ObjectPool
+	peerConnection map[string]*pool.ObjectPool
 	db             database.Database
 }
 
@@ -23,7 +23,7 @@ func MakeClusterDatabase() *ClusterDatabase {
 		self:           config.Properties.Self,
 		db:             database2.NewStandaloneDatabase(),
 		peerPicker:     consistenthash.NewNodeMap(nil),
-		peerconnection: make(map[string]*pool.ObjectPool),
+		peerConnection: make(map[string]*pool.ObjectPool),
 	}
 
 	nodes := make([]string, 0, len(config.Properties.Peers)+1)
