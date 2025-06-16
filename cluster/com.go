@@ -43,7 +43,7 @@ func (cluster *ClusterDatabase) relay(peer string, c resp.Connection, args [][]b
 		return reply.MakeErrReply(err.Error())
 	}
 	defer func() {
-		_ := cluster.returnPeerClient(peer, peerClient)
+		_ = cluster.returnPeerClient(peer, peerClient)
 	}()
 	peerClient.Send(utils.ToCmdLine("SELECT", strconv.Itoa(c.GetDBIndex())))
 	// other nodes have no idea which db was selected

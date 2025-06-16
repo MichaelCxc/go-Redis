@@ -2,12 +2,17 @@ package cluster
 
 import (
 	"context"
+	"fmt"
 	pool "github.com/jolestar/go-commons-pool/v2"
 	"go-Redis/config"
 	database2 "go-Redis/database"
 	"go-Redis/interface/database"
 	"go-Redis/interface/resp"
 	"go-Redis/lib/consistenthash"
+	"go-Redis/lib/logger"
+	"go-Redis/resp/reply"
+	"runtime/debug"
+	"strings"
 )
 
 type ClusterDatabase struct {
@@ -35,7 +40,7 @@ func MakeClusterDatabase() *ClusterDatabase {
 	cluster.peerPicker.AddNode(nodes...)
 	ctx := context.Background()
 	for _, peer := range config.Properties.Peers {
-		pool.NewObjectPoolWithDefaultConfig(ctx, &connectionFactory{
+		cluster.peerConnection[peer] = pool.NewObjectPoolWithDefaultConfig(ctx, &connectionFactory{
 			Peer: peer,
 		})
 	}
@@ -46,17 +51,28 @@ type CmdFunc func(cluster *ClusterDatabase, c resp.Connection, cmdArgs [][]byte)
 
 var router = makeRouter()
 
-func (c *ClusterDatabase) Exec(client resp.Connection, args [][]byte) resp.Reply {
-	//TODO implement me
-	panic("implement me")
+func (cluster *ClusterDatabase) Exec(client resp.Connection, args [][]byte) (result resp.Reply) {
+	defer func() {
+		if err := recover(); err != nil {
+			logger.Warn(fmt.Sprintf("error occurs: %v\n%s", err, string(debug.Stack())))
+			result = &reply.UnknownErrReply{}
+
+		}
+	}()
+	cmdName := strings.ToLower(string(args[0]))
+	cmdFunc, ok := router[cmdName]
+	if !ok {
+		reply.MakeErrReply("not supported command")
+	}
+	result = cmdFunc(cluster, client, args)
+	return
 }
 
-func (c *ClusterDatabase) Close() {
-	//TODO implement me
-	panic("implement me")
+func (cluster *ClusterDatabase) Close() {
+	cluster.db.Close()
 }
 
-func (c *ClusterDatabase) AfterClientClose(c resp.Connection) {
+func (cluster *ClusterDatabase) AfterClientClose(c resp.Connection) {
 	//TODO implement me
-	panic("implement me")
+	cluster.db.AfterClientClose(c)
 }
