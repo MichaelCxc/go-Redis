@@ -53,8 +53,8 @@ func (cluster *ClusterDatabase) relay(peer string, c resp.Connection, args [][]b
 func (cluster *ClusterDatabase) broadcast(c resp.Connection, args [][]byte) map[string]resp.Reply {
 	res := make(map[string]resp.Reply)
 	for _, node := range cluster.nodes {
-		reply := cluster.relay(node, c, args)
-		res[node] = reply
+		rep := cluster.relay(node, c, args)
+		res[node] = rep
 	}
 	return res
 }
