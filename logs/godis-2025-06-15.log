@@ -44,3 +44,6 @@
 [INFO][server.go:48] 2025/06/15 20:08:11 Shutting down
 [INFO][handler.go:92] 2025/06/15 20:08:11 Handler shutting down.
 [INFO][handler.go:92] 2025/06/15 20:08:11 Handler shutting down.
+[INFO][server.go:38] 2025/06/15 20:10:06 Start listen
+[INFO][server.go:48] 2025/06/15 20:10:07 Shutting down
+[INFO][handler.go:92] 2025/06/15 20:10:07 Handler shutting down.
